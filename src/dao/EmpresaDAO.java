@@ -98,7 +98,7 @@ public class EmpresaDAO {
    }
    
    public List<Empresa> getEmpresa(String nomeempresa){
-       String sql = "SELECT * FROM empresa HWERE nomeempresa LIKE ?";
+       String sql = "SELECT * FROM empresa WHERE nomeempresa LIKE ?";
          
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
@@ -122,6 +122,37 @@ public class EmpresaDAO {
         } catch (Exception e) {
             return null;
         }
+   }
+   public List<Empresa> getEmpresaPorId(int id1,int id2){
+           String sql = "SELECT * FROM empresa WHERE id >= ? AND id <= ?;"; 
+            try {
+          PreparedStatement stmt = this.conn.prepareStatement(sql);
+                      
+          stmt.setInt(1,id1);
+          stmt.setInt(2,id2 );
+          ResultSet rs = stmt.executeQuery();            
+          
+          List<Empresa> listaEmpresas = new ArrayList<>();
+          //percorrer o resultSet e salvar as informações dentro de uma variável "Empresa"
+          //Depois salva essa variavel dentro da lista
+          
+          //Estrutura de repetição While
+          while (rs.next()) { //.next retorna verdadeiro caso exista uma próxima posição dentro do array
+              Empresa empresa = new Empresa();
+              //Salvar dentro da variavel empresa, as informações            
+              empresa.setId(rs.getInt("id"));
+              empresa.setNomeempresa(rs.getString("nomeempresa"));
+              empresa.setAreaatuacao(rs.getString("areaatuacao"));
+              //Adicionando os elementos na lista criada
+              listaEmpresas.add(empresa);
+          }
+          //Após finalizar o while, o retorno será a listaEmpresas, onde cada posição é um registro do banco de dados
+          return listaEmpresas;
+          
+          //Se o método entrar no "Catch" quer dizer que não encontrou nenhuma empresa, então damos um "return null"
+      } catch (Exception e) {
+          return null;
+      }
    }
    
    public void excluir(int id){
