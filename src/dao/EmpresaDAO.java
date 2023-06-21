@@ -70,32 +70,6 @@ public class EmpresaDAO {
       }
    }
    
-   public Empresa getEmpresaNome(String nomeempresa){
-       String sql = "SELECT * FROM empresa WHERE nomeempresa LIKE ?";
-       
-           try {        
-            PreparedStatement stmt = this.conn.prepareStatement(sql);
-          
-            stmt.setString(1, nomeempresa);
-        
-            ResultSet rs = stmt.executeQuery();
-      
-            Empresa empresa = new Empresa();
-            rs.next(); 
-            
-            empresa.setId(rs.getInt("id"));
-            empresa.setNomeempresa(nomeempresa);
-            empresa.setNomeempresa(rs.getString("nomeempresa"));
-            empresa.setAreaatuacao(rs.getString("areaatuacao"));    
-          
-            return empresa;
-          
-          //tratando o erro, caso ele ocorra
-        } catch (Exception e) {
-            System.out.println("erro: " + e.getMessage());
-            return null;
-        }
-   }
    
    public List<Empresa> getEmpresa(String nomeempresa){
        String sql = "SELECT * FROM empresa WHERE nomeempresa LIKE ?";

@@ -7,7 +7,7 @@ public class Empresa {
     private String areaatuacao;
 
     public int getId() {
-        return id;
+        return   id;
     }
 
     public void setId(int id) {
@@ -30,5 +30,8 @@ public class Empresa {
         this.areaatuacao = areaatuacao;
     }
     
-    
+    @Override
+    public String toString(){
+        return this.nomeempresa;
+    }
 }
